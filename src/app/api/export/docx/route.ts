@@ -457,6 +457,7 @@ export async function POST(req: NextRequest) {
                               }),
                             ],
                             spacing: { before: 480, after: 320 },
+                            pageBreakBefore: true,
                             border: {
                               bottom: {
                                 color: "2563EB",
@@ -465,7 +466,7 @@ export async function POST(req: NextRequest) {
                               },
                             },
                           }),
-                          ...data.projects.slice(0, 6).map(project => 
+                          ...data.projects.map(project => 
                             new Paragraph({
                               children: [
                                 new TextRun({

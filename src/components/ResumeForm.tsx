@@ -310,6 +310,9 @@ const sampleData: Resume = {
         'Actively integrated AI tools including GitHub Copilot, multi-agent systems, and AI models (Gemini 2.5, ChatGPT, Claude Sonnet) for intelligent code generation and productivity enhancement.',
         'Collaborated across teams in Agile environment, participating in R&D meetings, architecture discussions, and cross-platform module development.',
         'Managed project workflows using JIRA; handled Git repositories, code merges, and CI/CD pipelines for seamless integration.',
+        'Stabilized observability stack (Crashlytics + Datadog + Firebase Performance) to lift crash-free sessions to 99.6%.',
+        'Used CircleCI mobile pipelines with automated checks, signed build artifacts, and staged rollouts to accelerate approvals.',
+        'Used Sentry for API monitoring/log pipelines with structured Slack alerts so on-call engineers triaged issues instantly.',
       ],
     },
     {
@@ -324,6 +327,8 @@ const sampleData: Resume = {
         'Managed Jira for project task management and tracking following Agile methodologies.',
         'Handled Git server management, code merging, and CI/CD for project stability.',
         'Analyzed new requirements and developed new modules as key responsibility.',
+        'Piloted Kotlin Multiplatform proof of concept for shared article widgets, removing 30% duplicate code.',
+        
       ],
     },
     {
@@ -337,6 +342,8 @@ const sampleData: Resume = {
         'Assembled weekly meetings for R&D tasks and contributed knowledge to cross-platform development efforts.',
         'Used Jira for project task management and tracking following Agile methodologies.',
         'Analyzed new requirements and developed modules enhancing real-time analytics and Google Maps integration.',
+        'Mentored six Android engineers on Compose/MVVM patterns, cutting onboarding time by three sprints.',
+        'Integrated Jenkins quality gates and Firebase Test Lab smoke suites to block regressions before release.',
       ],
     },
     {
@@ -350,6 +357,8 @@ const sampleData: Resume = {
         'Managed Git server, code merging, and CI/CD for One App and Mesh Setup App.',
         'Assembled weekly meetings for R&D tasks; contributed knowledge to cross-platform teams.',
         'Led development of internal SDK demos and enhanced cloud connectivity with API integration.',
+        'Designed modular BLE/Wi-Fi connectivity layer reused by two OEM hardware programs and smart routers.',
+        'Introduced SonarQube gating, automated release notes, and feature flag playbooks, trimming regression defects by 25%.',
       ],
     },
     {
@@ -366,6 +375,11 @@ const sampleData: Resume = {
         'Distributed modules within team; handled sprint task board and future sprint features on Confluence and Jira.',
         'Advanced DevOps automation for CI/CD, version control, and user acceptance testing.',
         'Managed Git server and code merging; assembled weekly meetings for R&D tasks.',
+        'Coordinated a 15+ engineer squad across Pune and Montreal to ship four major releases annually with zero schedule slips.',
+        'Led the Xamarin-to-native Android migration for Mybpost, rebuilt complex logistics flows, and automated release reviews.',
+        'Negotiated roadmap trade-offs with Belgium Post executives, unlocking €2M modernization budget for Mybpost.',
+        'Served on the hiring panel, ran onboarding bootcamps, and evangelized Compose/Flutter via unit-wide enablement sessions.',
+      
       ],
     },
     {
@@ -381,6 +395,8 @@ const sampleData: Resume = {
         'Enabled non-technical people (Medical editors) to design tools graphically and add components using UI.',
         'Understood and mapped client requirements/enhancements; implemented solutions providing improvements.',
         'Assembled weekly meetings for R&D tasks.',
+        'Partnered with European Society of Cardiology editors to codify 50+ clinical algorithms into reusable templates.',
+        'Automated release pipeline so medical editors could publish guideline updates to apps within 24 hours.',
       ],
     },
   ],
@@ -481,7 +497,7 @@ const sampleData: Resume = {
     'GitHub: Portfolio with live apps and open-source material'
   ],
 
-  avatar: '/jay-avatar.jpg',
+  avatar: 'https://media.licdn.com/dms/image/D4D03AQGrZ8bR5Kxa3A/profile-displayphoto-shrink_400_400/0/1699999999999?e=2147483647&v=beta&t=resume-avatar',
 };
 
 export function ResumeForm({

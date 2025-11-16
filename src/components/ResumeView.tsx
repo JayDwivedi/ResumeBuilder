@@ -313,38 +313,40 @@ export function ResumeView({ data }: { data: Resume }) {
             </section>
           )}
 
-          {/* Selected Projects */}
-          {!!data.projects?.length && (
-            <section className="mt-7">
-              <h3 className="mb-3 border-b-2 border-blue-600 pb-1.5 text-[13pt] font-bold uppercase tracking-wider text-blue-700">
-                Selected Projects
-              </h3>
-              <div className="space-y-2.5">
-                {data.projects.map((project, i) => (
-                  <div key={i} className="flex items-start leading-snug">
-                    <span className="mr-2 mt-0.5 font-bold text-blue-600">-</span>
-                    <div className="text-[10pt] text-gray-700">
-                      <span className="font-bold text-gray-900">{project.name}</span>
-                      {project.role && (
-                        <span className="italic text-gray-600"> ({project.role})</span>
-                      )}{' '}
-                      — {project.description}
-                      {project.technologies?.length > 0 && (
-                        <span className="text-[9pt] text-gray-500">
-                          {' '}
-                          [{project.technologies.join(', ')}]
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
         </div>
       </div>
 
-
+      {/* Full-width Projects Page */}
+      {!!data.projects?.length && (
+        <section
+          className="mt-8 border-t-4 border-blue-600 bg-white px-10 py-8 break-before-page print:break-before-page"
+          style={{ breakBefore: 'page' }}
+        >
+          <h3 className="mb-4 border-b-2 border-blue-600 pb-1.5 text-[13pt] font-bold uppercase tracking-wider text-blue-700">
+            Selected Projects
+          </h3>
+          <div className="space-y-3">
+            {data.projects.map((project, i) => (
+              <div key={i} className="flex items-start leading-snug">
+                <span className="mr-2 mt-0.5 font-bold text-blue-600">-</span>
+                <div className="text-[10pt] text-gray-700">
+                  <span className="font-bold text-gray-900">{project.name}</span>
+                  {project.role && (
+                    <span className="italic text-gray-600"> ({project.role})</span>
+                  )}{' '}
+                  — {project.description}
+                  {project.technologies?.length > 0 && (
+                    <span className="text-[9pt] text-gray-500">
+                      {' '}
+                      [{project.technologies.join(', ')}]
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
       </div>
 
       {/* End Resume Content */}

@@ -336,28 +336,29 @@ export function ResumePDF({ data }: { data: Resume }) {
               </View>
             )}
 
-            {/* Selected Projects */}
-            {!!data.projects?.length && (
-              <View style={{ marginTop: 20 }}>
-                <Text style={styles.rightSectionHeader}>Selected Projects</Text>
-                {data.projects.map((project, i) => (
-                  <View key={i} style={styles.projectItem}>
-                    <Text style={styles.bodyText}>
-                      <Text style={styles.projectName}>- {project.name}</Text>
-                      {project.role && (
-                        <Text style={styles.projectRole}> ({project.role})</Text>
-                      )}
-                      <Text> — {project.description}</Text>
-                      {project.technologies?.length > 0 && (
-                        <Text style={styles.projectTech}> [{project.technologies.join(', ')}]</Text>
-                      )}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            )}
           </View>
         </View>
+
+        {/* Full-width Projects Section (forces next page) */}
+        {!!data.projects?.length && (
+          <View break style={styles.projectsSection}>
+            <Text style={styles.rightSectionHeader}>Selected Projects</Text>
+            {data.projects.map((project, i) => (
+              <View key={i} style={styles.projectItem}>
+                <Text style={styles.bodyText}>
+                  <Text style={styles.projectName}>- {project.name}</Text>
+                  {project.role && (
+                    <Text style={styles.projectRole}> ({project.role})</Text>
+                  )}
+                  <Text> — {project.description}</Text>
+                  {project.technologies?.length > 0 && (
+                    <Text style={styles.projectTech}> [{project.technologies.join(', ')}]</Text>
+                  )}
+                </Text>
+              </View>
+            ))}
+          </View>
+        )}
 
 
       </Page>

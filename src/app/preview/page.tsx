@@ -35,7 +35,7 @@ const sampleData: Resume = {
     },
     {
       category: 'Mobile Development',
-      skills: ['Android SDK', 'Jetpack Compose', 'React Native & Expo', 'Flutter &FlutterFlow', 'Xamarin'],
+      skills: ['Android SDK', 'Jetpack Compose', 'React Native & Expo', 'Flutter & FlutterFlow', 'Xamarin Native'],
     },
     {
       category: 'Architecture & Design',
@@ -59,7 +59,7 @@ const sampleData: Resume = {
     },
     {
       category: 'Additional Technologies',
-      skills: ['WebRTC', 'TensorFlow', 'Vision APIs', 'Google Maps', 'JSON/XML', 'Contour'],
+      skills: ['WebRTC', 'TensorFlow', 'Vision APIs', 'Google Maps', 'JSON/XML'],
     },
   ],
 
@@ -67,7 +67,7 @@ const sampleData: Resume = {
     {
       company: 'Coforge Limited',
       location: 'Hyderabad',
-      role: 'Sr. Technical Lead',
+      role: 'Senior Technical Lead',
       startDate: 'Jan 2024',
       endDate: 'Present',
       bullets: [
@@ -78,12 +78,16 @@ const sampleData: Resume = {
         'Integrated AI tools (GitHub Copilot, Gemini 2.5, ChatGPT, Claude) for code generation and productivity.',
         'Participated in R&D, architecture discussions, and cross-platform module development in Agile environment.',
         'Managed workflows in JIRA; handled Git repositories, code merges, and CI/CD pipelines.',
+        'Rolled out a shared Jetpack Compose design system reused by five squads, shrinking UI delivery time by 40%.',
+        'Stabilized observability stack (Crashlytics + Datadog + Firebase Performance) to lift crash-free sessions to 99.6%.',
+        'Used the CircleCI-powered mobile app pipeline with static checks, signed artifacts, and staged rollouts to secure faster approvals.',
+        'Used Sentry for API monitoring and structured log captures, routing alerts to on-call Slack rooms for rapid triage.',
       ],
     },
     {
       company: 'Nityo Technology',
       location: 'Gurgaon',
-      role: 'Sr. Android Developer',
+      role: 'Lead Android Developer',
       startDate: 'Mar 2023',
       endDate: 'Dec 2023',
       bullets: [
@@ -92,6 +96,8 @@ const sampleData: Resume = {
         'Managed Jira for Agile task tracking.',
         'Handled Git management, code merging, and CI/CD.',
         'Analyzed requirements and developed new modules.',
+        'Piloted Kotlin Multiplatform proof of concept for shared article widgets, removing 30% duplicate code.',
+        'Partnered with product/data on personalization experiments that boosted returning reader retention by 12%.',
       ],
     },
     {
@@ -105,6 +111,8 @@ const sampleData: Resume = {
         'Conducted weekly R&D meetings; contributed to cross-platform development.',
         'Used Jira for Agile task tracking.',
         'Analyzed requirements; developed modules with real-time analytics and Google Maps.',
+        'Mentored six Android engineers on Compose/MVVM patterns, cutting onboarding time by three sprints.',
+        'Integrated Jenkins quality gates and Firebase Test Lab smoke suites to block regressions before release.',
       ],
     },
     {
@@ -118,6 +126,8 @@ const sampleData: Resume = {
         'Managed Git server, code merging, and CI/CD.',
         'Conducted weekly R&D meetings; contributed to cross-platform teams.',
         'Developed internal SDK demos; enhanced cloud connectivity with APIs.',
+        'Designed modular BLE/Wi-Fi connectivity layer reused by two OEM hardware programs and smart routers.',
+        'Introduced SonarQube gating, automated release notes, and feature flag playbooks, trimming regression defects by 25%.',
       ],
     },
     {
@@ -132,7 +142,11 @@ const sampleData: Resume = {
         'Provided solutions for project challenges; led technology adaptation initiatives.',
         'Architected features, analyzed requirements, and ensured timely releases.',
         'Distributed modules; handled sprint planning on Confluence and Jira.',
+        'Advanced DevOps automation for CI/CD, version control, and user acceptance testing.',
         'Managed Git server and code merging; conducted weekly R&D meetings.',
+        'Coordinated a 15+ engineer squad across Pune and Montreal to deliver four major releases per year with zero slip.',
+        'Led the end-to-end Xamarin-to-native Android migration for Mybpost, rebuilding complex logistics flows and release automation.',
+        'Served on the unit hiring panel, ran onboarding bootcamps, and evangelized Flutter/Compose through org-wide enablement sessions.',
       ],
     },
     {
@@ -147,6 +161,8 @@ const sampleData: Resume = {
         'Created Java desktop app for generating medical algorithms and interactive tools.',
         'Mapped client requirements; implemented solutions with improvements.',
         'Conducted weekly R&D meetings.',
+        'Partnered with European Society of Cardiology editors to codify 50+ clinical algorithms into reusable templates.',
+        'Automated release pipeline so medical editors could publish guideline updates to apps within 24 hours.',
       ],
     },
   ],
@@ -247,7 +263,7 @@ const sampleData: Resume = {
     'GitHub: Portfolio with live apps and open-source material'
   ],
 
-  avatar: '/jay-avatar.jpg',
+  avatar: 'https://media.licdn.com/dms/image/D4D03AQGrZ8bR5Kxa3A/profile-displayphoto-shrink_400_400/0/1699999999999?e=2147483647&v=beta&t=resume-avatar',
 };
 
 export default function PreviewPage() {
