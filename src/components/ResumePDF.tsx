@@ -340,7 +340,7 @@ export function ResumePDF({ data }: { data: Resume }) {
             {!!data.projects?.length && (
               <View style={{ marginTop: 20 }}>
                 <Text style={styles.rightSectionHeader}>Selected Projects</Text>
-                {data.projects.slice(0, 6).map((project, i) => (
+                {data.projects.map((project, i) => (
                   <View key={i} style={styles.projectItem}>
                     <Text style={styles.bodyText}>
                       <Text style={styles.projectName}>- {project.name}</Text>

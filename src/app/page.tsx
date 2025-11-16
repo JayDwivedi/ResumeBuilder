@@ -9,7 +9,7 @@ export default function HomePage() {
         <p className="text-gray-600">Create a professional resume and export as PDF or DOCX.</p>
       </header>
 
-      <div className="flex gap-4">
+      <div className="flex flex-wrap gap-4">
         <Link
           className="rounded bg-black px-4 py-2 text-white hover:bg-gray-800"
           href="/builder"
@@ -21,6 +21,12 @@ export default function HomePage() {
           href="/preview"
         >
           Preview Template
+        </Link>
+        <Link
+          className="rounded border border-blue-300 bg-blue-50 px-4 py-2 text-blue-700 hover:bg-blue-100"
+          href="/projects"
+        >
+          View All Projects
         </Link>
       </div>
 

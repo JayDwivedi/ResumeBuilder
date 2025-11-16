@@ -320,7 +320,7 @@ export function ResumeView({ data }: { data: Resume }) {
                 Selected Projects
               </h3>
               <div className="space-y-2.5">
-                {data.projects.slice(0, 6).map((project, i) => (
+                {data.projects.map((project, i) => (
                   <div key={i} className="flex items-start leading-snug">
                     <span className="mr-2 mt-0.5 font-bold text-blue-600">-</span>
                     <div className="text-[10pt] text-gray-700">
