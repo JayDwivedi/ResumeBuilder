@@ -3,7 +3,6 @@ import { ResumeSchema, type Resume } from '@/lib/schema'
 import {
   AlignmentType,
   Document,
-  HeadingLevel,
   Paragraph,
   Packer,
   TextRun,
@@ -521,7 +520,7 @@ export async function POST(req: NextRequest) {
 
     const buffer = await Packer.toBuffer(doc)
 
-    return new Response(buffer as any, {
+    return new Response(buffer as unknown as BufferSource, {
       status: 200,
       headers: {
         'Content-Type':
@@ -530,8 +529,9 @@ export async function POST(req: NextRequest) {
         'Cache-Control': 'no-store',
       },
     })
-  } catch (err: any) {
-    return new Response(JSON.stringify({ error: err?.message ?? 'Invalid data' }), {
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : 'Invalid data'
+    return new Response(JSON.stringify({ error: errorMessage }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },
     })

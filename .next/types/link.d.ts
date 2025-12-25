@@ -30,9 +30,9 @@ declare namespace __next_route_internal_types__ {
 
   type StaticRoutes = 
     | `/`
-    | `/api/upload`
     | `/api/export/docx`
     | `/api/export/pdf`
+    | `/api/upload`
     | `/builder`
     | `/preview`
     | `/projects`

@@ -13,13 +13,15 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "deploy": "npm run build && npx firebase-tools deploy --only hosting"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@react-pdf/renderer": "^4.0.0",
     "clsx": "^2.1.1",
     "docx": "^8.5.0",
+    "firebase": "^12.7.0",
     "lucide-react": "^0.471.0",
     "next": "^14.2.17",
     "react": "^18.3.1",

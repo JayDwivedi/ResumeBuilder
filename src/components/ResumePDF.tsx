@@ -1,6 +1,5 @@
 import { Document, Page, Text, View, StyleSheet, Link, Image } from '@react-pdf/renderer'
 import type { Resume } from '@/lib/schema'
-import { formatDateRange } from '@/lib/format'
 
 const styles = StyleSheet.create({
   page: { 

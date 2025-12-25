@@ -23,10 +23,10 @@ export async function POST(req: NextRequest) {
     
     const parsed = ResumeSchema.parse(json) as Resume
 
-  const element = React.createElement(ResumePDF as any, { data: parsed }) as any
-  const pdf = (await renderToBuffer(element as any)) as unknown as Uint8Array
+  const element = React.createElement(ResumePDF as unknown as typeof ResumePDF, { data: parsed })
+  const pdf = (await renderToBuffer(element as React.ReactElement)) as unknown as Uint8Array
 
-  return new Response(pdf as any, {
+  return new Response(pdf as unknown as BufferSource, {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
@@ -34,8 +34,9 @@ export async function POST(req: NextRequest) {
         'Cache-Control': 'no-store',
       },
     })
-  } catch (err: any) {
-    return new Response(JSON.stringify({ error: err?.message ?? 'Invalid data' }), {
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : 'Invalid data'
+    return new Response(JSON.stringify({ error: errorMessage }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },
     })

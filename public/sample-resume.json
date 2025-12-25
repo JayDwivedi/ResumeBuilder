@@ -1,0 +1,56 @@
+{
+  "name": "Sample Candidate",
+  "title": "Software Engineer",
+  "email": "sample@example.com",
+  "phone": "+1-555-123-4567",
+  "location": "Remote",
+  "avatar": "",
+  "links": [
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/sample" },
+    { "label": "GitHub", "url": "https://github.com/sample" }
+  ],
+  "summary": "Passionate engineer with experience building web applications, APIs, and automation tooling.",
+  "expertise": [
+    "Web Development",
+    "APIs",
+    "Automation"
+  ],
+  "skills": [
+    { "category": "Languages", "skills": ["TypeScript", "JavaScript", "Python"] },
+    { "category": "Frameworks", "skills": ["Next.js", "React", "Node.js"] }
+  ],
+  "experience": [
+    {
+      "company": "Tech Co",
+      "role": "Frontend Engineer",
+      "location": "Remote",
+      "startDate": "2023",
+      "endDate": "Present",
+      "bullets": [
+        "Built UI components with React and TailwindCSS",
+        "Collaborated with backend teams to integrate APIs"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "school": "State University",
+      "degree": "BSc Computer Science",
+      "location": "City",
+      "startDate": "2018",
+      "endDate": "2022",
+      "details": []
+    }
+  ],
+  "projects": [
+    {
+      "name": "Portfolio Website",
+      "role": "Developer",
+      "description": "Personal portfolio built with Next.js and deployed to Firebase Hosting.",
+      "technologies": ["Next.js", "TailwindCSS", "Firebase"]
+    }
+  ],
+  "languages": ["English"],
+  "certifications": [],
+  "community": []
+}

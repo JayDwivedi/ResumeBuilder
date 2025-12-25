@@ -228,74 +228,74 @@ const STORAGE_KEY = 'resume-builder:data'
 //   community: ['LinkedIn: Active profile and networking', 'Stack Overflow: Active contributor', 'GitHub: Portfolio with live apps and open-source material'],
 //   avatar: '/jay-avatar.jpg',
 // }
-const sampleData: Resume = {
-  name: 'Jay Kishor Dwivedi',
-  title: 'Mobile Architect/Lead Android Developer',
-  email: 'jaidwivedi20@gmail.com',
-  phone: '+91 8600227438',
-  location: 'Hyderabad, India',
-
-  links: [
-    { label: 'LinkedIn', url: 'https://linkedin.com/in/jaydwivedi' },
-    { label: 'GitHub', url: 'https://github.com/jaydwivedi' },
-    { label: 'Portfolio', url: 'https://jaydwivedi.github.io' },
-  ],
-
-  summary:
-    'Results-driven Mobile Architect/Lead Android Developer with 11+ years of experience designing, building, and optimizing complex native and cross-platform mobile applications for HR, fintech, news, and healthcare platforms. Expert in Kotlin, Jetpack Compose, Flutter, and React Native. Exceptional track record in leading technical teams, architecting scalable solutions, modernizing legacy systems, and driving high-impact automation initiatives using AI, low-code, and cloud technologies. Active contributor to architecture groups, solution design, and cross-platform R&D initiatives across multiple organizations.',
-
-  expertise: [
-    'Team Leadership & Mentorship',
-    'Clean Architecture, MVVM, MVI, MVP',
-    'Cross-Platform Strategy',
-    'CI/CD (Jenkins, Bitrise)',
-    'AI-assisted Development',
-    'Low-Code Development (FlutterFlow)',
-    'React Native & Flutter Adoption',
-    'Agile Methodologies',
-    'Cross-Functional Collaboration',
-    'Performance Optimization',
-    'Unit Testing & Test Automation',
-    'Solution Design & Architecture',
-    'R&D & Innovation',
-  ],
-
-  skills: [
-    {
-      category: 'Languages',
-      skills: ['Kotlin', 'Java', 'JavaScript', 'TypeScript', 'Python(Basic)', 'Dart(Basic)'],
-    },
-    {
-      category: 'Mobile Development',
-      skills: ['Android SDK', 'Jetpack Compose', 'React Native', 'Flutter', 'FlutterFlow', 'Xamarin Native', 'Expo'],
-    },
-    {
-      category: 'Architecture & Design',
-      skills: ['MVVM', 'Clean Architecture', 'Dagger Hilt', 'Koin', 'Dependency Injection', 'Solution Design'],
-    },
-    {
-      category: 'Backend & Data',
-      skills: ['Room', 'SQLite', 'PostgreSQL', 'Supabase', 'GraphQL', 'REST APIs', 'Retrofit', 'Coroutines', 'RxJava'],
-    },
-    {
-      category: 'DevOps & Tools',
-      skills: ['CI/CD (Jenkins, Bitrise)', 'Git/GitHub/Bitbucket', 'Jira', 'Confluence', 'SonarQube', 'AWS Monitoring', 'Firebase Crashlytics', 'FCM', 'GitHub Copilot'],
-    },
-    {
-      category: 'Testing & Quality',
-      skills: ['JUnit', 'Mockito', 'NUnit/XUnit', 'Unit Testing', 'Test Automation', 'Code Review'],
-    },
-    {
-      category: 'Cloud & AI',
-      skills: ['Firebase (Auth, FCM, Crashlytics)', 'Google APIs', 'AI Tools (Gemini, ChatGPT, Claude, GitHub Copilot)', 'Multi-agent Systems'],
-    },
-    {
-      category: 'Additional Technologies',
-      skills: ['WebRTC', 'TensorFlow', 'Vision APIs', 'Google Maps', 'JSON/XML', 'Contour'],
-    },
-  ],
-
-  experience: [
+/* const JaysampleData: Resume = {
+//   name: 'Jay Kishor Dwivedi',
+//   title: 'Mobile Architect/Lead Android Developer',
+//   email: 'jaidwivedi20@gmail.com',
+//   phone: '+91 8600227438',
+//   location: 'Hyderabad, India',
+//
+//   links: [
+//     { label: 'LinkedIn', url: 'https://linkedin.com/in/jaydwivedi' },
+//     { label: 'GitHub', url: 'https://github.com/jaydwivedi' },
+//     { label: 'Portfolio', url: 'https://jaydwivedi.github.io' },
+//   ],
+//
+//   summary:
+//     'Results-driven Mobile Architect/Lead Android Developer with 11+ years of experience designing, building, and optimizing complex native and cross-platform mobile applications for HR, fintech, news, and healthcare platforms. Expert in Kotlin, Jetpack Compose, Flutter, and React Native. Exceptional track record in leading technical teams, architecting scalable solutions, modernizing legacy systems, and driving high-impact automation initiatives using AI, low-code, and cloud technologies. Active contributor to architecture groups, solution design, and cross-platform R&D initiatives across multiple organizations.',
+//
+//   expertise: [
+//     'Team Leadership & Mentorship',
+//     'Clean Architecture, MVVM, MVI, MVP',
+//     'Cross-Platform Strategy',
+//     'CI/CD (Jenkins, Bitrise)',
+//     'AI-assisted Development',
+//     'Low-Code Development (FlutterFlow)',
+//     'React Native & Flutter Adoption',
+//     'Agile Methodologies',
+//     'Cross-Functional Collaboration',
+//     'Performance Optimization',
+//     'Unit Testing & Test Automation',
+//     'Solution Design & Architecture',
+//     'R&D & Innovation',
+//   ],
+//
+//   skills: [
+//     {
+//       category: 'Languages',
+//       skills: ['Kotlin', 'Java', 'JavaScript', 'TypeScript', 'Python(Basic)', 'Dart(Basic)'],
+//     },
+//     {
+//       category: 'Mobile Development',
+//       skills: ['Android SDK', 'Jetpack Compose', 'React Native', 'Flutter', 'FlutterFlow', 'Xamarin Native', 'Expo'],
+//     },
+//     {
+//       category: 'Architecture & Design',
+//       skills: ['MVVM', 'Clean Architecture', 'Dagger Hilt', 'Koin', 'Dependency Injection', 'Solution Design'],
+//     },
+//     {
+//       category: 'Backend & Data',
+//       skills: ['Room', 'SQLite', 'PostgreSQL', 'Supabase', 'GraphQL', 'REST APIs', 'Retrofit', 'Coroutines', 'RxJava'],
+//     },
+//     {
+//       category: 'DevOps & Tools',
+//       skills: ['CI/CD (Jenkins, Bitrise)', 'Git/GitHub/Bitbucket', 'Jira', 'Confluence', 'SonarQube', 'AWS Monitoring', 'Firebase Crashlytics', 'FCM', 'GitHub Copilot'],
+//     },
+//     {
+//       category: 'Testing & Quality',
+//       skills: ['JUnit', 'Mockito', 'NUnit/XUnit', 'Unit Testing', 'Test Automation', 'Code Review'],
+//     },
+//     {
+//       category: 'Cloud & AI',
+//       skills: ['Firebase (Auth, FCM, Crashlytics)', 'Google APIs', 'AI Tools (Gemini, ChatGPT, Claude, GitHub Copilot)', 'Multi-agent Systems'],
+//     },
+//     {
+//       category: 'Additional Technologies',
+//       skills: ['WebRTC', 'TensorFlow', 'Vision APIs', 'Google Maps', 'JSON/XML', 'Contour'],
+//     },
+//   ],
+//
+//   experience: [
     {
       company: 'Coforge Limited',
       location: 'Hyderabad',
@@ -498,8 +498,247 @@ const sampleData: Resume = {
   ],
 
   avatar: 'https://media.licdn.com/dms/image/D4D03AQGrZ8bR5Kxa3A/profile-displayphoto-shrink_400_400/0/1699999999999?e=2147483647&v=beta&t=resume-avatar',
-};
+}; */
 
+
+const sampleData: Resume = {
+  name: 'Umadatt Rajnarayan Dwivedi',
+  title: 'FS Lead Technology Specialist | Technical Architect | Microservices & Cloud Expert',
+  email: 'umadatt2024@outlook.com',
+  phone: '+91-7337504801',
+  location: 'Mumbai, India',
+
+  links: [
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/umadatt-dwivedi-344aa042/' },
+  ],
+
+  summary:
+    'Results-driven Technical Architect with 14+ years of enterprise platform design and delivery using cloud-native microservices, Spring Boot, Angular, and DevOps automation. Hands-on individual contributor with deep expertise in scalable, secure, and resilient system design. Proven ability to reduce operational risk, improve developer productivity, and accelerate release cycles through strong architectural governance and high-quality implementation, ensuring alignment between business objectives and technology strategy.',
+
+  expertise: [
+    'Technical Architecture',
+    'Cloud-Native Design',
+    'API Modernization',
+    'Microservices Architecture',
+    'Spring Boot & Java',
+    'Stakeholder Management',
+    'DevOps Implementation',
+    'AWS & Azure Cloud',
+    'Kubernetes & Docker',
+    'Event-Driven Architecture',
+    'Domain-Driven Design (DDD)',
+    'Technical Leadership & Mentoring',
+    'Security & Compliance',
+  ],
+
+  skills: [
+    {
+      category: 'Languages',
+      skills: ['Java', 'Python', 'TypeScript', 'JavaScript', 'SQL','gRPC','GraphQl'],
+    },
+    {
+      category: 'Cloud & Infrastructure',
+      skills: ['AWS (EC2, EKS, ECR, S3, Secret Manager)', 'Azure', 'Docker', 'Kubernetes', 'Service Mesh'],
+    },
+    {
+      category: 'Architecture & Design',
+      skills: ['Microservices', 'DDD', 'CQRS', 'SAGA Pattern', 'Event-driven Architecture', 'Strangler Pattern'],
+    },
+    {
+      category: 'Backend Frameworks',
+      skills: ['Spring Boot', 'Spring Cloud', 'Spring Data', 'Hibernate', 'REST APIs'],
+    },
+    {
+      category: 'Frontend',
+      skills: ['Angular', 'TypeScript', 'HTML5', 'CSS3'],
+    },
+    {
+      category: 'Data & Messaging',
+      skills: ['Oracle', 'SQL Server', 'MySQL', 'MongoDB', 'Kafka', 'Solace', 'JMS'],
+    },
+    {
+      category: 'DevOps & Tools',
+      skills: ['CI/CD (Jenkins, GitHub Actions, TeamCity)', 'Git', 'SonarQube', 'ELK Stack', 'Observability & Monitoring'],
+    },
+    {
+      category: 'Security & Patterns',
+      skills: ['OAuth2', 'JWT', 'API Gateway', 'Service-to-Service Communication', 'Distributed Tracing'],
+    },
+  ],
+
+  experience: [
+    {
+      company: 'Coforge Ltd.',
+      location: 'Hyderabad',
+      role: 'Lead Technology Specialist',
+      startDate: 'Jan 2024',
+      endDate: 'Nov 2025',
+      bullets: [
+        'Designed, developed, tested, and deployed Spring Boot–based microservices end to end as hands-on individual contributor supporting high-scale enterprise applications.',
+        'Achieved 99.9% production stability, reduced defect leakage by 40%, and improved system performance by 25%.',
+        'Architected Feature Flag SDK ecosystem using OpenFeature API and Harness.io; built Java, Python, and TypeScript SDKs for centralized flag propagation.',
+        'Designed secure developer mode with Jira-based approvals to improve feature experimentation speed and reduce production rollback risks.',
+        'Built scalable Spring Boot microservice for PDF generation with encryption, watermarking, password protection, and PDF/A validation; delivered REST and gRPC APIs.',
+        'Architected Automated Communication Service for email, SMS, and notifications with async processing, retry handling, and failure tracking.',
+        'Integrated with third-party email and SMS gateways; managed end-to-end communication pipeline.',
+        'Authored technical design and Confluence documentation for all microservices and platform initiatives.',
+      ],
+    },
+    {
+      company: 'Trigyn Technologies India Pvt. Ltd.',
+      location: 'Mumbai',
+      role: 'Technical & Technical Architect',
+      startDate: 'Aug 2022',
+      endDate: 'Dec 2023',
+      bullets: [
+        'Defined enterprise architecture for cloud-native microservices platforms aligned with business objectives.',
+        'Owned architecture lifecycle across DDD, API-first design, security governance, and CI/CD pipelines.',
+        'Established scalable, resilient, and observable DevOps architecture for large-scale deployments.',
+        'Delivered Bihar Caste-Based Survey platform and Emigrate national platforms supporting millions of users.',
+        'Designed API gateways, service mesh, and inter-service communication patterns for high-throughput systems.',
+        'Mentored technical teams on cloud-native patterns, microservices best practices, and DevOps automation.',
+      ],
+    },
+    {
+      company: 'Synechron',
+      location: 'Mumbai',
+      role: 'Senior Technology Specialist',
+      startDate: 'Oct 2020',
+      endDate: 'May 2022',
+      bullets: [
+        'Architected and delivered enterprise-scale solutions for financial services and capital markets.',
+        'Led technical strategy, system design, and delivery governance across multiple workstreams.',
+        'Mentored engineering teams on microservices, cloud architecture, and DevOps practices.',
+      ],
+    },
+    {
+      company: 'Datamatics Global Services',
+      location: 'India',
+      role: 'Technical Architect',
+      startDate: 'Sep 2019',
+      endDate: 'Aug 2020',
+      bullets: [
+        'Designed enterprise solutions for data processing and analytics platforms.',
+        'Established architectural governance and technical standards across development teams.',
+        'Mentored architects and senior developers on cloud-native design patterns.',
+      ],
+    },
+    {
+      company: 'Capgemini Technologies Services India',
+      location: 'India',
+      role: 'Technical Manager / Architect',
+      startDate: 'Feb 2017',
+      endDate: 'Aug 2019',
+      bullets: [
+        'Managed technical delivery and architecture for large-scale enterprise applications.',
+        'Led architecture reviews, design discussions, and technology evaluations.',
+        'Drove DevOps adoption and CI/CD automation across multiple projects.',
+      ],
+    },
+    {
+      company: 'Sears Holding Corporation',
+      location: 'USA',
+      role: 'Technical Lead ',
+      startDate: 'May 2012',
+      endDate: 'Mar 2016',
+      bullets: [
+        'Architected and led development of e-commerce and retail platforms.',
+        'Designed scalable infrastructure and API strategies for high-traffic systems.',
+        'Mentored technical teams and established coding standards and best practices.',
+      ],
+    },
+    {
+      company: 'ABM Knowledgeware Ltd.',
+      location: 'India',
+      role: 'Technical Lead',
+      startDate: 'Jun 2011',
+      endDate: 'May 2012',
+      bullets: [
+        'Led technical delivery of enterprise Java applications.',
+        'Established development standards and mentored junior developers.',
+      ],
+    },
+  ],
+
+  education: [
+     
+    {
+      school: 'K. K. Wagh I.E.E.R, Nashik',
+      degree: 'Bachelor of Engineering (Computer Engineering)',
+      location: 'Nashik',
+      startDate: '1996',
+      endDate: '2000',
+      details: [],
+    },
+  ],
+
+  projects: [
+    {
+      name: 'Feature Flag Management – SDK Development',
+      role: 'Architect & Lead Developer',
+      description: 'Designed Feature Flag SDK ecosystem using OpenFeature API and Harness.io. Built Java, Python, and TypeScript SDKs for centralized flag propagation with secure developer mode and Jira-based approvals.',
+      technologies: ['Java', 'Python', 'TypeScript', 'OpenFeature', 'Harness.io', 'gRPC','REST APIs','Spring Boot', 'Jira Integration','Angular'],
+    },
+    {
+      name: 'Shared PDF Services',
+      role: 'Architect & Lead Developer',
+      description: 'Built scalable Spring Boot microservice for PDF generation and transformation. Implemented encryption, watermarking, password protection, and PDF/A validation with REST and gRPC APIs.',
+      technologies: ['Spring Boot', 'Java', 'gRPC','GraphQl', 'REST APIs', 'PDF Processing', 'Microservices','Angular'],
+    },
+    {
+      name: 'Automated Communication Service (ACS)',
+      role: 'Architect & Lead Developer',
+      description: 'Built ACS for email, SMS, and notification delivery with async processing, retry handling, and failure tracking. Integrated with third-party email and SMS gateways.',
+      technologies: ['Spring Boot', 'Java', 'Kafka', 'AWS', 'gRPC','GraphQl','REST APIs', 'Async Processing', 'Microservices'],
+    },
+    {
+      name: 'Bihar Caste-Based Survey Platform',
+      role: 'Solution Architect',
+      description: 'Designed and delivered national-scale survey platform supporting millions of concurrent users. Implemented microservices, scalable databases, and real-time analytics.',
+      technologies: ['Spring Boot', 'Microservices', 'Kubernetes', 'AWS', 'Oracle', 'Angular', 'CI/CD', 'Jenkins'],
+    },
+    {
+      name: 'Emigrate',	
+      role: 'Architect & Lead Developer',
+      description: 'Architected and delivered national-scale emigration management platform. Designed API-first architecture with comprehensive security and compliance controls.',
+      technologies: ['Spring Boot', 'Microservices', 'Angular', 'Oracle', 'Kubernetes', 'AWS', 'OAuth2', 'Jenkins'],
+    },
+    {
+      name: 'Enterprise Microservices Architecture',
+      role: 'Technical Lead',
+      description: 'Established cloud-native microservices foundation supporting multiple business domains. Implemented service mesh, API gateway, distributed tracing, and observability.',
+      technologies: ['Kubernetes', 'Service Mesh', 'Spring Cloud', 'API Gateway', 'ELK Stack', 'Kafka', 'AWS', 'Azure'],
+    },
+    {
+      name: 'DevOps Automation & CI/CD Platform',
+      role: 'Technical Lead',
+      description: 'Designed and implemented comprehensive CI/CD platform with Jenkins, GitHub Actions, and infrastructure-as-code. Enabled automated testing, security scanning, and deployment pipelines.',
+      technologies: ['Jenkins', 'GitHub Actions', 'Kubernetes', 'Docker', 'Terraform', 'SonarQube', 'GitOps'],
+    },
+    {
+      name: 'E-Commerce Platform (Sears)',
+      role: 'Technical Lead' ,
+      description: 'Architected and led development of high-traffic e-commerce platform handling millions of transactions. Designed scalable infrastructure and API strategies.',
+      technologies: ['Java', 'Spring', 'Microservices', 'Oracle', 'REST APIs', 'CI/CD', 'Cloud Infrastructure'],
+    },
+  ],
+
+  languages: ['English', 'Hindi'],
+
+  certifications: [
+    'Agile Certification',
+    'Cloud Foundation Certification (AWS/Azure)',
+    'Kubernetes Developer Certification',
+    'Microservices Architecture Certification',
+  ],
+
+  community: [
+    'LinkedIn: Active in enterprise architecture and microservices community',
+    'Technical speaker on cloud-native architecture and DevOps',
+    'Mentor for enterprise technology architects',
+  ],
+
+};
 export function ResumeForm({
   initial,
   onChange,
@@ -514,7 +753,7 @@ export function ResumeForm({
     mode: 'onChange',
   })
 
-  const { control, register, watch, setValue } = form
+  const { control } = form
 
   const links = useFieldArray({ control, name: 'links' })
   const experience = useFieldArray({ control, name: 'experience' })

@@ -18,6 +18,42 @@ body {
   background-color: rgb(var(--bg));
 }
 
+/* Global polish */
+* { scroll-behavior: smooth; }
+::selection { background: rgba(59, 130, 246, 0.2); }
+
+/* Subtle page background gradient */
+html {
+  background-image:
+    radial-gradient(1200px 600px at 100% -10%, rgba(59, 130, 246, 0.08), transparent 60%),
+    radial-gradient(800px 400px at -10% -10%, rgba(168, 85, 247, 0.08), transparent 60%);
+}
+
+/* Reusable UI primitives using Tailwind @apply */
+@layer components {
+  .card { @apply rounded-xl border bg-white p-6 shadow-sm; }
+  .card-muted { @apply rounded-xl border bg-gray-50 p-6; }
+  .btn { @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500; }
+  .btn-primary { @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm bg-black text-white hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500; }
+  .btn-secondary { @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm border hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500; }
+  .btn-ghost { @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm bg-white/10 text-white backdrop-blur hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500; }
+  .btn-white { @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm bg-white text-blue-700 shadow hover:bg-blue-50 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500; }
+  .pill { @apply inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700; }
+  .dropzone { @apply flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-8 text-center; }
+}
+
+/* Fun accents */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
+@keyframes glow {
+  0% { box-shadow: 0 0 0 rgba(59, 130, 246, 0.0); }
+  50% { box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2); }
+  100% { box-shadow: 0 0 0 rgba(59, 130, 246, 0.0); }
+}
+
 /* Print-friendly tweaks */
 @media print {
   .no-print { display: none !important; }
