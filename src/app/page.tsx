@@ -1,219 +1,195 @@
 "use client"
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { ResumeSchema, type Resume } from '@/lib/schema'
-import { Upload, Sparkles, Download, FileCode2 } from 'lucide-react'
+import { Sparkles, Download, FileCode2, ArrowRight } from 'lucide-react'
+import { localStorageOnly } from '@/lib/storage'
+import { Button } from '@/components/ui/Button'
+import { Card, CardBody, CardTitle } from '@/components/ui/Card'
+import { FileUploadZone } from '@/components/FileUploadZone'
+import { UploadModal, type UploadStatus } from '@/components/UploadModal'
 
 export default function HomePage() {
   const router = useRouter()
-  const fileInputRef = useRef<HTMLInputElement>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [uploading, setUploading] = useState(false)
-  const [uploadStatus, setUploadStatus] = useState<'idle' | 'success' | 'failure'>('idle')
+  const [uploadStatus, setUploadStatus] = useState<UploadStatus>('idle')
   const [uploadMessage, setUploadMessage] = useState<string>('')
-
-  const handlePickFile = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click()
-    }
-  }
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      handleUpload(file)
-    }
-    // Reset so same file can be re-uploaded
-    e.target.value = ''
-  }
+  const [uploadProgress, setUploadProgress] = useState<number>(0)
 
   const handleUpload = async (file: File) => {
-    setError(null)
-    setUploading(true)
+    // Validate file type
+    if (!file.type.includes('json') && !file.name.endsWith('.json')) {
+      setUploadStatus('failure')
+      setUploadMessage('Please upload a valid JSON file')
+      return
+    }
+
+    setUploadStatus('uploading')
+    setUploadProgress(0)
+    setUploadMessage('Reading file...')
+
     try {
+      // Simulate file reading progress (0-20%)
+      await new Promise(resolve => setTimeout(resolve, 300))
+      setUploadProgress(20)
+      
       const text = await file.text()
+      
+      // Simulate parsing progress (20-60%)
+      setUploadProgress(40)
+      setUploadMessage('Parsing JSON...')
+      await new Promise(resolve => setTimeout(resolve, 200))
+      
       const json = JSON.parse(text)
+      setUploadProgress(60)
+      setUploadMessage('Validating data...')
+      
+      // Simulate validation progress (60-85%)
+      await new Promise(resolve => setTimeout(resolve, 150))
       const parsed = ResumeSchema.parse(json) as Resume
-      const { storage } = await import('@/lib/storage')
-      await storage.set<Resume>('resume-builder:data', parsed)
+      setUploadProgress(85)
+      setUploadMessage('Saving to browser...')
+      
+      // Simulate storage save (85-100%) - local storage only, no server upload
+      await new Promise(resolve => setTimeout(resolve, 200))
+      localStorageOnly.set<Resume>('resume-builder:data', parsed)
+      setUploadProgress(100)
+      
+      // Show success after brief delay
+      await new Promise(resolve => setTimeout(resolve, 300))
       setUploadStatus('success')
-      setUploadMessage('File uploaded successfully! Redirecting to preview...')
-      setUploading(false)
-      setTimeout(() => router.push('/preview?uploaded=1'), 2000)
+      setUploadMessage('Your resume has been uploaded successfully!')
     } catch (e) {
-      const msg = e instanceof Error ? e.message : 'Invalid JSON data'
+      const msg = e instanceof Error ? e.message : 'Invalid JSON format'
       setUploadStatus('failure')
       setUploadMessage(`Upload failed: ${msg}`)
-      setUploading(false)
     }
   }
 
   const closeModal = () => {
     setUploadStatus('idle')
     setUploadMessage('')
+    setUploadProgress(0)
+  }
+
+  const handleProceed = () => {
+    closeModal()
+    router.push('/preview?uploaded=1')
   }
 
   return (
-    <main className="mx-auto max-w-6xl p-6">
-      {/* Hero */}
-      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 p-8 text-white shadow-lg animate-[glow_6s_ease-in-out_infinite]">
-        <div className="relative z-10 grid gap-6 md:grid-cols-[2fr_1fr] md:items-center">
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Build Your Resume, Fast.</h1>
-            <p className="mt-3 max-w-2xl text-blue-100">
-              Upload a JSON file to instantly generate a beautiful resume. Edit in the builder, then export to PDF or DOCX.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/builder" className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-white backdrop-blur hover:bg-white/20 transition-colors">
-                <Sparkles className="h-5 w-5" /> Open Builder
-              </Link>
-              <Link href="/preview" className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-blue-700 shadow hover:bg-blue-50 transition-colors">
-                <FileCode2 className="h-5 w-5" /> Preview Template
-              </Link>
-              <a href="/sample-resume.json" download className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-white backdrop-blur hover:bg-white/20 transition-colors">
-                <Download className="h-5 w-5" /> Download Sample JSON
-              </a>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden px-6 py-16 sm:py-24">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-blue-100 opacity-20 blur-3xl" />
+          <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-indigo-100 opacity-20 blur-3xl" />
+        </div>
+
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center">
+            <div className="inline-block rounded-full bg-blue-100 px-4 py-1 text-sm font-medium text-blue-700 mb-6">
+              ✨ Build Your Professional Resume
             </div>
-          </div>
-          <div className="hidden md:block">
-            <div className="rounded-xl bg-white/10 p-4 text-sm text-blue-100 ring-1 ring-white/20 animate-[float_6s_ease-in-out_infinite]">
-              <p className="font-semibold">How it works</p>
-              <ol className="mt-2 list-decimal space-y-1 pl-4">
-                <li>Download the sample JSON</li>
-                <li>Customize your details</li>
-                <li>Upload to generate resume</li>
-                <li>Edit and export</li>
-              </ol>
+            <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              Create Your Perfect Resume in Minutes
+            </h1>
+            <p className="mt-6 text-xl text-gray-600">
+              Upload a JSON file, customize your details, and export as PDF or DOCX. No design skills required.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <Link href="/builder" className="inline-block">
+                <Button variant="primary" size="lg">
+                  <Sparkles className="h-5 w-5" />
+                  Start Building
+                  <ArrowRight className="h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href="/preview" className="inline-block">
+                <Button variant="outline" size="lg">
+                  <FileCode2 className="h-5 w-5" />
+                  View Template
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
-        <div className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
       </section>
 
-      {/* Upload Card */}
-      <section className="mt-8 grid gap-6 md:grid-cols-2">
-        <div className="card">
-          <h2 className="mb-2 text-xl font-semibold">Generate from JSON</h2>
-          <p className="text-sm text-gray-600">Upload a JSON file that matches our schema to auto-fill your resume.</p>
+      {/* Features Section */}
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <div className="grid gap-6 md:grid-cols-3">
+          <Card variant="elevated">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
+              <Sparkles className="h-6 w-6 text-blue-600" />
+            </div>
+            <CardTitle>Easy Import</CardTitle>
+            <CardBody className="mt-2 text-sm">
+              Upload your JSON resume and it will be instantly loaded into the builder with all your data preserved.
+            </CardBody>
+          </Card>
 
-          <div
-            className="mt-5 dropzone hover:border-blue-300 transition-colors cursor-pointer"
-            onDragOver={(e) => {
-              e.preventDefault()
-              e.currentTarget.classList.add('border-blue-400', 'bg-blue-50')
-            }}
-            onDragLeave={(e) => {
-              e.currentTarget.classList.remove('border-blue-400', 'bg-blue-50')
-            }}
-            onDrop={(e) => {
-              e.preventDefault()
-              e.currentTarget.classList.remove('border-blue-400', 'bg-blue-50')
-              const file = e.dataTransfer.files?.[0]
-              if (file && (file.type === 'application/json' || file.name.endsWith('.json'))) {
-                handleUpload(file)
-              } else {
-                setUploadStatus('failure')
-                setUploadMessage('Please upload a valid JSON file')
-              }
-            }}
+          <Card variant="elevated">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-100">
+              <FileCode2 className="h-6 w-6 text-indigo-600" />
+            </div>
+            <CardTitle>Modern Design</CardTitle>
+            <CardBody className="mt-2 text-sm">
+              Professional, clean templates that make your resume stand out while keeping the focus on your content.
+            </CardBody>
+          </Card>
+
+          <Card variant="elevated">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-green-100">
+              <Download className="h-6 w-6 text-green-600" />
+            </div>
+            <CardTitle>Multiple Exports</CardTitle>
+            <CardBody className="mt-2 text-sm">
+              Export your resume as PDF or DOCX with a single click. Perfect for any application.
+            </CardBody>
+          </Card>
+        </div>
+      </section>
+
+      {/* Upload Section */}
+      <section className="mx-auto max-w-4xl px-6 py-16">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-gray-900">Get Started</h2>
+          <p className="mt-4 text-gray-600">Upload your resume JSON file to begin</p>
+        </div>
+
+        <FileUploadZone
+          onUpload={handleUpload}
+          isLoading={uploadStatus === 'uploading'}
+          accept=".json,application/json"
+        />
+
+        {/* Sample File Link */}
+        <div className="mt-8 text-center">
+          <p className="text-sm text-gray-600">Need a sample file to get started?</p>
+          <a
+            href="/sample-resume.json"
+            download
+            className="mt-2 inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
           >
-            <div>
-              <Upload className="mx-auto h-10 w-10 text-gray-400" />
-              <p className="mt-2 text-sm text-gray-600">Drag and drop your JSON here</p>
-              <p className="text-xs text-gray-500">or</p>
-              <button
-                onClick={handlePickFile}
-                className="mt-2 btn-primary"
-                disabled={uploading}
-                type="button"
-              >
-                {uploading ? 'Uploading…' : 'Choose File'}
-              </button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".json,application/json"
-                onChange={handleFileChange}
-                style={{ display: 'none' }}
-              />
-            </div>
-          </div>
-          {error && (
-            <div className="mt-3 rounded-lg bg-red-50 p-3">
-              <p className="text-sm text-red-700">{error}</p>
-              <button
-                onClick={() => setError(null)}
-                className="mt-1 text-xs text-red-600 underline hover:text-red-700"
-              >
-                Dismiss
-              </button>
-            </div>
-          )}
-        </div>
-
-        <div className="card">
-          <h2 className="mb-2 text-xl font-semibold">Get Started</h2>
-          <p className="text-sm text-gray-600">Prefer editing manually? Jump into the builder or preview the layout first.</p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <Link href="/builder" className="btn-primary">Start Building</Link>
-            <Link href="/preview" className="btn-secondary">Preview Template</Link>
-          </div>
+            <Download className="h-4 w-4" />
+            Download Sample Resume
+          </a>
         </div>
       </section>
 
-      {/* Upload Status Modal */}
-      {uploadStatus !== 'idle' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className={`rounded-lg p-8 shadow-2xl max-w-md w-full mx-4 ${
-            uploadStatus === 'success' ? 'bg-white' : 'bg-white'
-          }`}>
-            <div className="flex items-center justify-center mb-4">
-              {uploadStatus === 'success' ? (
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                  <svg className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              ) : (
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
-                  <svg className="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </div>
-              )}
-            </div>
-            <h3 className={`mb-2 text-center text-xl font-bold ${
-              uploadStatus === 'success' ? 'text-green-900' : 'text-red-900'
-            }`}>
-              {uploadStatus === 'success' ? 'Upload Successful!' : 'Upload Failed'}
-            </h3>
-            <p className={`mb-6 text-center text-sm ${
-              uploadStatus === 'success' ? 'text-green-700' : 'text-red-700'
-            }`}>
-              {uploadMessage}
-            </p>
-            <div className="flex gap-3">
-              {uploadStatus === 'failure' && (
-                <button
-                  onClick={closeModal}
-                  className="flex-1 rounded-lg bg-gray-200 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-300 transition-colors"
-                >
-                  Try Again
-                </button>
-              )}
-              {uploadStatus === 'success' && (
-                <button
-                  onClick={() => router.push('/preview?uploaded=1')}
-                  className="flex-1 rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 transition-colors"
-                >
-                  Go to Preview
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-    </main>
+      {/* Upload Modal */}
+      <UploadModal
+        isOpen={uploadStatus !== 'idle'}
+        status={uploadStatus}
+        message={uploadMessage}
+        progress={uploadProgress}
+        onClose={closeModal}
+        onRetry={() => setUploadStatus('idle')}
+        onProceed={handleProceed}
+      />
+    </div>
   )
 }

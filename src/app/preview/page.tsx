@@ -3,6 +3,7 @@
 import { ResumeView } from '@/components/ResumeView'
 import type { Resume } from '@/lib/schema'
 import { useEffect, useState } from 'react'
+import { localStorageOnly } from '@/lib/storage'
 
 const sampleData: Resume = {
   name: 'Jay Kishor Dwivedi',
@@ -508,7 +509,6 @@ const sampleData: Resume = {
 //   ],
 
 export default function PreviewPage() {
-  const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
   const [showSuccess, setShowSuccess] = useState(false);
   const [resumeData, setResumeData] = useState<Resume>(sampleData);
   const [isLoading, setIsLoading] = useState(true);
@@ -516,8 +516,7 @@ export default function PreviewPage() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const { storage } = await import('@/lib/storage');
-        const savedData = await storage.get<Resume>('resume-builder:data');
+        const savedData = localStorageOnly.get<Resume>('resume-builder:data');
         if (savedData) {
           setResumeData(savedData);
         }
@@ -532,28 +531,66 @@ export default function PreviewPage() {
   }, []);
 
   useEffect(() => {
+    const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
     if (searchParams && searchParams.get('uploaded') === '1') {
       setShowSuccess(true);
       // Optionally remove the param from URL after showing
       window.history.replaceState({}, document.title, window.location.pathname);
     }
-  }, [searchParams]);
+  }, []);
 
   return (
-    <main className="mx-auto max-w-4xl p-6">
-      <h1 className="mb-4 text-2xl font-bold">Template Preview</h1>
-      {showSuccess && (
-        <div className="mb-4 rounded-lg bg-green-50 p-4 text-green-800 border border-green-200">
-          <strong>Success!</strong> Your file was uploaded and loaded successfully.
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <main className="mx-auto max-w-6xl px-6 py-12">
+        {/* Header */}
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900">Template Preview</h1>
+            <p className="mt-2 text-gray-600">View your resume with sample data</p>
+          </div>
         </div>
-      )}
-      {isLoading ? (
-        <div className="rounded-lg bg-blue-50 p-6 text-center">
-          <p className="text-blue-700">Loading resume data...</p>
+
+        {/* Success Banner */}
+        {showSuccess && (
+          <div className="mb-6 rounded-lg border border-green-200 bg-green-50 p-4">
+            <p className="text-sm font-medium text-green-800">
+              ✓ Your file was uploaded and loaded successfully!
+            </p>
+          </div>
+        )}
+
+        {/* Loading State */}
+        {isLoading ? (
+          <div className="flex min-h-[400px] items-center justify-center rounded-lg bg-gray-50">
+            <div className="text-center">
+              <div className="inline-block rounded-full bg-blue-100 p-4 mb-4">
+                <div className="h-8 w-8 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin" />
+              </div>
+              <p className="text-gray-600">Loading resume data...</p>
+            </div>
+          </div>
+        ) : (
+          <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+            <ResumeView data={resumeData} />
+          </div>
+        )}
+
+        {/* Action Buttons */}
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row justify-center">
+          <a
+            href="/builder"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700 transition-colors"
+          >
+            Edit in Builder
+          </a>
+          <a
+            href="/"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-6 py-3 font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            Upload New File
+          </a>
         </div>
-      ) : (
-        <ResumeView data={resumeData} />
-      )}
-    </main>
+      </main>
+    </div>
   )
 }

@@ -12,8 +12,11 @@ const styles = StyleSheet.create({
   // Header Section
   header: {
     backgroundColor: '#EBF5FF',
-    borderBottom: '4px solid #2563EB',
-    padding: '32px 48px',
+    borderBottomColor: '#2563EB',
+    borderBottomWidth: 4,
+    paddingTop: 32,
+    paddingBottom: 32,
+    paddingHorizontal: 48,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
@@ -54,15 +57,17 @@ const styles = StyleSheet.create({
   // Two Column Layout
   mainContent: {
     flexDirection: 'row',
-    minHeight: '100%',
   },
   
   // Left Column
   leftColumn: {
     width: '33%',
     backgroundColor: '#F9FAFB',
-    borderRight: '2px solid #E5E7EB',
-    padding: '32px 24px',
+    borderRightColor: '#E5E7EB',
+    borderRightWidth: 2,
+    paddingTop: 32,
+    paddingBottom: 32,
+    paddingHorizontal: 24,
   },
   leftSection: {
     marginBottom: 28,
@@ -71,7 +76,9 @@ const styles = StyleSheet.create({
   // Right Column  
   rightColumn: {
     width: '67%',
-    padding: '28px 32px',
+    paddingTop: 28,
+    paddingBottom: 28,
+    paddingHorizontal: 32,
     backgroundColor: '#FFFFFF',
   },
   
@@ -82,7 +89,8 @@ const styles = StyleSheet.create({
     color: '#1D4ED8',
     textTransform: 'uppercase',
     letterSpacing: 1,
-    borderBottom: '2px solid #2563EB',
+    borderBottomColor: '#2563EB',
+    borderBottomWidth: 2,
     paddingBottom: 6,
     marginBottom: 12,
   },
@@ -93,7 +101,8 @@ const styles = StyleSheet.create({
     color: '#1D4ED8',
     textTransform: 'uppercase',
     letterSpacing: 1,
-    borderBottom: '2px solid #2563EB',
+    borderBottomColor: '#2563EB',
+    borderBottomWidth: 2,
     paddingBottom: 6,
     marginBottom: 12,
   },
@@ -154,9 +163,12 @@ const styles = StyleSheet.create({
   
   // Projects Section (Full Width)
   projectsSection: {
-    borderTop: '2px solid #E5E7EB',
+    borderTopColor: '#E5E7EB',
+    borderTopWidth: 2,
     backgroundColor: '#FFFFFF',
-    padding: '32px 48px',
+    paddingTop: 32,
+    paddingBottom: 32,
+    paddingHorizontal: 48,
   },
   projectItem: {
     marginBottom: 8,
@@ -305,8 +317,6 @@ export function ResumePDF({ data }: { data: Resume }) {
                 </View>
               </View>
             )}
-
-
           </View>
 
           {/* Right Column */}
@@ -338,9 +348,9 @@ export function ResumePDF({ data }: { data: Resume }) {
           </View>
         </View>
 
-        {/* Full-width Projects Section (forces next page) */}
+        {/* Projects Section (no forced break; lets PDF engine paginate naturally) */}
         {!!data.projects?.length && (
-          <View break style={styles.projectsSection}>
+          <View style={styles.projectsSection}>
             <Text style={styles.rightSectionHeader}>Selected Projects</Text>
             {data.projects.map((project, i) => (
               <View key={i} style={styles.projectItem}>
@@ -358,8 +368,6 @@ export function ResumePDF({ data }: { data: Resume }) {
             ))}
           </View>
         )}
-
-
       </Page>
     </Document>
   )
