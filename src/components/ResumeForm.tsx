@@ -800,6 +800,22 @@ export function ResumeForm({
     <FormProvider {...form}>
       <form className="mx-auto max-w-4xl space-y-10 bg-gray-50 p-6">
         <div className="rounded-lg bg-white p-8 shadow-sm">
+          <h2 className="mb-2 border-b-2 border-blue-600 pb-2 text-2xl font-bold uppercase tracking-wider text-blue-700">
+            Resume Format
+          </h2>
+          <p className="mb-5 text-sm text-gray-600">Choose the layout used for the preview and PDF export.</p>
+          <label className="block max-w-md text-sm font-medium text-gray-700">
+            Template
+            <select
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              {...form.register('template')}
+            >
+              <option value="modern">Modern two-column</option>
+              <option value="professional">Professional (Naukri-style)</option>
+            </select>
+          </label>
+        </div>
+        <div className="rounded-lg bg-white p-8 shadow-sm">
           <h2 className="mb-6 border-b-2 border-blue-600 pb-2 text-2xl font-bold uppercase tracking-wider text-blue-700">
             Personal Information
           </h2>

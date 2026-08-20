@@ -13,6 +13,49 @@ import {
   WidthType,
 } from 'docx'
 
+function createProfessionalDocument(data: Resume) {
+  const heading = (text: string) => new Paragraph({
+    children: [new TextRun({ text, bold: true, size: 30, color: '35649A' })],
+    spacing: { before: 120, after: 120 },
+  })
+  const bullets = (items: string[]) => items.map(item => new Paragraph({
+    children: [new TextRun({ text: `❖  ${item}`, size: 20, color: '171717' })],
+    spacing: { after: 100 },
+  }))
+  const profileItems = data.summary ? data.summary.split(/(?<=[.!?])\s+/).filter(Boolean) : []
+
+  return new Document({
+    sections: [{
+      properties: {},
+      children: [
+        new Paragraph({ children: [new TextRun({ text: data.name.toUpperCase(), size: 50 })], alignment: AlignmentType.CENTER, spacing: { after: 90 } }),
+        new Paragraph({ children: [new TextRun({ text: data.title, bold: true, size: 26, color: '35649A' })], alignment: AlignmentType.CENTER, spacing: { after: 180 } }),
+        new Paragraph({ children: [new TextRun({ text: [data.phone, data.email, ...data.links.map(link => link.label)].filter(Boolean).join('  |  '), size: 20, color: '075BE0' })], alignment: AlignmentType.CENTER, spacing: { after: 200 }, border: { bottom: { color: 'C9CDD1', size: 6, style: BorderStyle.SINGLE } } }),
+        ...(data.summary ? [new Paragraph({ children: [new TextRun({ text: data.summary, bold: true, size: 20 })], spacing: { before: 160, after: 160 } })] : []),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE }, insideHorizontal: { style: BorderStyle.NONE }, insideVertical: { style: BorderStyle.NONE } },
+          rows: [new TableRow({ children: [
+            new TableCell({ width: { size: 34, type: WidthType.PERCENTAGE }, shading: { fill: 'E5E5E5' }, children: [
+              ...(data.expertise.length ? [heading('Core Competencies'), ...data.expertise.map(item => new Paragraph({ children: [new TextRun({ text: item, bold: true, size: 19 })], spacing: { after: 70 }, border: { bottom: { color: '06416F', size: 12, style: BorderStyle.SINGLE } } }))] : []),
+              ...(data.skills.length ? [heading('Technical Skills'), ...data.skills.map(group => new Paragraph({ children: [new TextRun({ text: `${group.category}: `, bold: true, size: 18 }), new TextRun({ text: group.skills.join(', '), size: 18 })], spacing: { after: 100 } }))] : []),
+              ...(data.languages.length ? [heading('Languages'), new Paragraph({ text: data.languages.join(', '), spacing: { after: 100 } })] : []),
+              ...(data.community.length ? [heading('Soft Skills'), ...bullets(data.community)] : []),
+            ] }),
+            new TableCell({ width: { size: 66, type: WidthType.PERCENTAGE }, children: [
+              ...(profileItems.length ? [heading('Profile Summary'), ...bullets(profileItems)] : []),
+              ...(data.certifications.length ? [heading('Awards & Achievements'), ...bullets(data.certifications)] : []),
+              ...(data.experience.length ? [heading('Professional Experience'), ...data.experience.flatMap(job => [new Paragraph({ children: [new TextRun({ text: `${job.role} — ${job.company}`, bold: true, size: 20 })] }), new Paragraph({ children: [new TextRun({ text: [job.location, `${job.startDate} – ${job.endDate}`].filter(Boolean).join(' | '), size: 17, color: '555555' })], spacing: { after: 60 } }), ...bullets(job.bullets)])] : []),
+              ...(data.projects.length ? [heading('Projects'), ...bullets(data.projects.map(project => `${project.name}${project.role ? ` (${project.role})` : ''} — ${project.description}`))] : []),
+              ...(data.education.length ? [heading('Education'), ...bullets(data.education.map(education => `${education.degree} from ${education.school}${education.location ? `, ${education.location}` : ''} ${education.endDate}`))] : []),
+            ] }),
+          ] })],
+        }),
+      ],
+    }],
+  })
+}
+
 export async function POST(req: NextRequest) {
   try {
     const json = await req.json()
@@ -32,7 +75,7 @@ export async function POST(req: NextRequest) {
     
     const data = ResumeSchema.parse(json) as Resume
 
-    const doc = new Document({
+    const doc = data.template === 'professional' ? createProfessionalDocument(data) : new Document({
       sections: [
         {
           properties: {},

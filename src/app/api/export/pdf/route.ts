@@ -1,6 +1,6 @@
 import React from 'react'
 import { NextRequest } from 'next/server'
-import { renderToBuffer } from '@react-pdf/renderer'
+import { renderToStream } from '@react-pdf/renderer'
 import { ResumeSchema, type Resume } from '@/lib/schema'
 import { ResumePDF } from '@/components/ResumePDF'
 
@@ -23,10 +23,10 @@ export async function POST(req: NextRequest) {
     
     const parsed = ResumeSchema.parse(json) as Resume
 
-  const element = React.createElement(ResumePDF as unknown as typeof ResumePDF, { data: parsed })
-  const pdf = (await renderToBuffer(element as React.ReactElement)) as unknown as Uint8Array
-
-  return new Response(pdf as unknown as BufferSource, {
+    const element = React.createElement(ResumePDF as unknown as typeof ResumePDF, { data: parsed })
+    const stream = await renderToStream(element as React.ReactElement)
+    
+    return new Response(stream as unknown as BodyInit, {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
     })
   } catch (err: unknown) {
     const errorMessage = err instanceof Error ? err.message : 'Invalid data'
+    console.error('PDF export error:', err)
     return new Response(JSON.stringify({ error: errorMessage }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },

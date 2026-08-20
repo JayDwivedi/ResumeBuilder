@@ -2,9 +2,9 @@
 
 import { Resume } from '@/lib/schema'
 import { Mail, Phone, Linkedin, Github, Globe, Download, FileText } from 'lucide-react'
-import { useState } from 'react'
+import { type ReactNode, useState } from 'react'
 
-export function ResumeView({ data }: { data: Resume }) {
+function ModernResumeView({ data }: { data: Resume }) {
   const [isExporting, setIsExporting] = useState<'pdf' | 'docx' | null>(null)
 
   const handleExport = async (format: 'pdf' | 'docx') => {
@@ -352,4 +352,69 @@ export function ResumeView({ data }: { data: Resume }) {
       {/* End Resume Content */}
     </div>
   )
+}
+
+function ProfessionalResumeView({ data }: { data: Resume }) {
+  const headline = data.summary || data.title
+
+  return (
+    <div className="mx-auto max-w-[21cm] bg-white font-sans text-[10pt] leading-relaxed text-[#171717] shadow-xl print:shadow-none">
+      <header className="px-8 pb-4 pt-7 text-center">
+        <h1 className="text-[25pt] font-normal uppercase tracking-tight">{data.name}</h1>
+        {data.title && <p className="mt-1 text-[12pt] font-bold text-[#35649a]">{data.title}</p>}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-7 gap-y-2 text-[10.5pt]">
+          {data.phone && <span className="flex items-center gap-2"><Phone className="text-[#2f6db0]" size={18} />{data.phone}</span>}
+          {data.email && <a className="flex items-center gap-2 text-[#075be0]" href={`mailto:${data.email}`}><Mail className="text-[#2f6db0]" size={19} />{data.email}</a>}
+          {data.links?.map((link, index) => (
+            <a key={index} className="flex items-center gap-2 text-[#075be0]" href={link.url} target="_blank" rel="noreferrer">
+              {link.label.toLowerCase().includes('linkedin') ? <Linkedin className="text-[#2f6db0]" size={19} /> : link.label.toLowerCase().includes('github') ? <Github className="text-[#2f6db0]" size={19} /> : <Globe className="text-[#2f6db0]" size={19} />}
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </header>
+
+      <div className="mx-6 border-t-2 border-[#c9cdd1]" />
+      {headline && <div className="px-8 py-4 font-bold text-[10.5pt] leading-snug">{headline}</div>}
+
+      <div className="grid grid-cols-[34%_66%]">
+        <aside className="bg-[#e5e5e5] px-5 py-2">
+          {!!data.expertise?.length && <section className="mb-7">
+            <SectionTitle>Core Competencies</SectionTitle>
+            <div className="space-y-3">
+              {data.expertise.map((item, index) => <div key={index}><p className="px-2 text-[10pt] font-bold text-[#343434]">{item}</p><div className="mx-3 mt-1.5 h-2 bg-[#06416f]" /></div>)}
+            </div>
+          </section>}
+          {!!data.skills?.length && <section className="mb-7">
+            <SectionTitle>Technical Skills</SectionTitle>
+            <div className="space-y-3 text-[9.5pt]">
+              {data.skills.map((group, index) => <p key={index}><span className="font-bold">{group.category}: </span>{group.skills.join(', ')}</p>)}
+            </div>
+          </section>}
+          {!!data.languages?.length && <section className="mb-7"><SectionTitle>Languages</SectionTitle><p>{data.languages.join(', ')}</p></section>}
+          {!!data.community?.length && <section><SectionTitle>Soft Skills</SectionTitle><ul className="space-y-2">{data.community.map((item, index) => <li key={index} className="font-semibold">{item}</li>)}</ul></section>}
+        </aside>
+
+        <main className="px-5 py-2">
+          {data.summary && <section className="mb-7"><SectionTitle>Profile Summary</SectionTitle><BulletList items={data.summary.split(/(?<=[.!?])\s+/).filter(Boolean)} /></section>}
+          {!!data.certifications?.length && <section className="mb-7"><SectionTitle>Awards &amp; Achievements</SectionTitle><BulletList items={data.certifications} /></section>}
+          {!!data.experience?.length && <section className="mb-7"><SectionTitle>Professional Experience</SectionTitle><div className="space-y-5">{data.experience.map((job, index) => <div key={index}><p className="font-bold">{job.role} — {job.company}</p><p className="mb-1 text-[9pt] text-[#555]">{[job.location, `${job.startDate} – ${job.endDate}`].filter(Boolean).join(' | ')}</p><BulletList items={job.bullets} /></div>)}</div></section>}
+          {!!data.projects?.length && <section className="mb-7"><SectionTitle>Projects</SectionTitle><BulletList items={data.projects.map(project => `${project.name}${project.role ? ` (${project.role})` : ''} — ${project.description}`)} /></section>}
+          {!!data.education?.length && <section><SectionTitle>Education</SectionTitle><div className="space-y-3">{data.education.map((education, index) => <div key={index} className="flex gap-3"><span className="pt-1 text-[#111]">❖</span><p><span className="font-bold">{education.degree}</span> from {education.school}{education.location ? `, ${education.location}` : ''} {education.endDate}</p></div>)}</div></section>}
+        </main>
+      </div>
+    </div>
+  )
+}
+
+function SectionTitle({ children }: { children: ReactNode }) {
+  return <h2 className="mb-3 text-[15pt] font-bold text-[#35649a]">{children}</h2>
+}
+
+function BulletList({ items }: { items: string[] }) {
+  return <ul className="space-y-2.5">{items.map((item, index) => <li key={index} className="flex gap-3"><span className="pt-0.5 text-[11pt] leading-none">❖</span><span>{item}</span></li>)}</ul>
+}
+
+export function ResumeView({ data }: { data: Resume }) {
+  return data.template === 'professional' ? <ProfessionalResumeView data={data} /> : <ModernResumeView data={data} />
 }

@@ -92,7 +92,7 @@ export default function BuilderPage() {
                 <p className="mt-1 text-sm text-gray-600">Update your information in real-time</p>
               </div>
               <div className="mt-6">
-                {initial && <ResumeForm initial={initial} onChange={() => {}} />}
+                {initial && <ResumeForm initial={initial} onChange={setInitial} />}
               </div>
             </Card>
 

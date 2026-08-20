@@ -1,5 +1,8 @@
 import { z } from 'zod'
 
+export const ResumeTemplateSchema = z.enum(['modern', 'professional'])
+export type ResumeTemplate = z.infer<typeof ResumeTemplateSchema>
+
 export const LinkSchema = z.object({
   label: z.string().min(1),
   url: z.string().url(),
@@ -36,6 +39,7 @@ export const SkillsSchema = z.object({
 })
 
 export const ResumeSchema = z.object({
+  template: ResumeTemplateSchema.optional(),
   avatar: z.string().optional().or(z.literal('')),
   name: z.string().min(1),
   title: z.string().min(1),
